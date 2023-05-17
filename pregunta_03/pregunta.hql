@@ -14,4 +14,17 @@ Escriba el resultado a la carpeta `output` de directorio de trabajo.
         >>> Escriba su respuesta a partir de este punto <<<
 */
 
+DROP TABLE IF EXISTS data;
+
+CREATE TABLE data (letter STRING, date STRING, value INT)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t';
+
+LOAD DATA INPATH "data.tsv" OVERWRITE INTO TABLE data;
+
+INSERT OVERWRITE DIRECTORY 'output'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+SELECT value
+FROM data
+ORDER BY value ASC
+LIMIT 5;
 
