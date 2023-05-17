@@ -16,14 +16,14 @@ Escriba el resultado a la carpeta `output` de directorio de trabajo.
 
 DROP TABLE IF EXISTS data;
 
-CREATE TABLE data (letter STRING, date STRING, value INT)
+CREATE TABLE data (letter STRING, date DATE, value INT)
 ROW FORMAT DELIMITED FIELDS TERMINATED BY '\t';
 
 LOAD DATA LOCAL INPATH "data.tsv" OVERWRITE INTO TABLE data;
 
 INSERT OVERWRITE DIRECTORY 'output'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
-SELECT letter, COUNT(*) 
+SELECT letter, COUNT(*) AS total
 FROM data
 GROUP BY letter
 ORDER BY letter;
