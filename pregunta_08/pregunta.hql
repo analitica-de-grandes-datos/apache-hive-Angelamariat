@@ -47,3 +47,10 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
     >>> Escriba su respuesta a partir de este punto <<<
 */
 
+INSERT OVERWRITE LOCAL DIRECTORY './output'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+SELECT c2, SUM(c6_value) AS sums
+FROM tbl0
+LATERAL VIEW EXPLODE(c6) tbl0 AS c6_key, c6_value
+GROUP BY 1
+ORDER BY 1;

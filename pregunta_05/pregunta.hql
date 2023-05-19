@@ -45,3 +45,14 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
     >>> Escriba su respuesta a partir de este punto <<<
 */
 
+INSERT OVERWRITE LOCAL DIRECTORY './output'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+WITH flatten AS(
+SELECT YEAR(c4) AS c4_year, EXPLODE(c5) AS c5_flat
+FROM tbl0
+)
+SELECT c4_year, c5_flat, COUNT(*)
+FROM flatten
+GROUP BY 1,2
+ORDER BY 1,2;
+
