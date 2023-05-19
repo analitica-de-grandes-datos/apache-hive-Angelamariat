@@ -24,4 +24,4 @@ INSERT OVERWRITE LOCAL DIRECTORY './output'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
 SELECT *
 FROM data
-ORDER BY letter, fecha, value;
+ORDER BY letter, value, fecha;
