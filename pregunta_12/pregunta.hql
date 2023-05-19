@@ -22,5 +22,5 @@ SELECT letter, key, COUNT(*) AS counts
 FROM t0
 LATERAL VIEW EXPLODE(c2) t0 AS letter
 LATERAL VIEW EXPLODE(c3) t0 AS key, value
-GROUP BY 1, 2
-ORDER BY 1, 2;
+GROUP BY letter, key
+ORDER BY letter, key;
