@@ -47,9 +47,9 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
 
 INSERT OVERWRITE LOCAL DIRECTORY './output'
 ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
-SELECT year(c4), c5_flat, COUNT(*)
-FROM tbl0
-LATERAL VIEW EXPLODE(c5) tbl0 AS c5_flat
-GROUP BY year(c4),c5_flat
-ORDER BY year(c4), c5_flat;
+SELECT year, c5_flat, COUNT(*)
+FROM (SELECT YEAR(c4) AS year, c5_flat FROM tbl0 LATERAL VIEW EXPLODE(c5) tbl0 AS c5_flat) subquery
+GROUP BY year, c5_flat
+ORDER BY year, c5_flat;
+
 
