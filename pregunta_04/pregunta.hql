@@ -44,3 +44,10 @@ LOAD DATA LOCAL INPATH 'data1.csv' INTO TABLE tbl1;
 /*
     >>> Escriba su respuesta a partir de este punto <<<
 */
+
+INSERT OVERWRITE LOCAL DIRECTORY './output'
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+SELECT DISTINCT(c5_flat)
+FROM tbl0
+LATERAL VIEW EXPLODE(c5) t0 AS c5_flat
+ORDER BY c5_flat;
